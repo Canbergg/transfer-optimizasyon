@@ -44,9 +44,10 @@ if uploaded_files and cardproduct_file:
                                     on='ARTICLE_CODE', how='left')
 
     # Check if ARTICLE_CATEGORY and ARTICLE_FAMILY columns are present after merging
-    if 'ARTICLE_CATEGORY' not in combined_df.columns or 'ARTICLE_FAMILY' not in combined_df.columns:
-        st.error("Birleştirme işlemi sonrasında 'ARTICLE_CATEGORY' veya 'ARTICLE_FAMILY' sütunu bulunamadı. "
-                 "Lütfen 'cardproduct' dosyasında 'ARTICLE_CODE' değerlerinin doğruluğunu kontrol edin.")
+    missing_columns = [col for col in ['ARTICLE_CATEGORY', 'ARTICLE_FAMILY'] if col not in combined_df.columns]
+    if missing_columns:
+        st.error(f"Birleştirme işlemi sonrasında şu sütunlar bulunamadı: {', '.join(missing_columns)}. "
+                 "Lütfen 'cardproduct' dosyasındaki 'ARTICLE_CODE' değerlerinin doğruluğunu kontrol edin.")
         st.stop()
 
     # Display combined data
