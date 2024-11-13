@@ -44,6 +44,10 @@ if uploaded_files and cardproduct_file:
                                     on='ARTICLE_CODE', how='left')
 
     # Check if ARTICLE_CATEGORY and ARTICLE_FAMILY columns are present after merging
+    st.write("Combined Data Columns:", combined_df.columns.tolist())
+    st.write("First few rows of Combined Data:")
+    st.dataframe(combined_df.head())
+
     missing_columns = [col for col in ['ARTICLE_CATEGORY', 'ARTICLE_FAMILY'] if col not in combined_df.columns]
     if missing_columns:
         st.error(f"Birleştirme işlemi sonrasında şu sütunlar bulunamadı: {', '.join(missing_columns)}. "
@@ -90,3 +94,4 @@ if uploaded_files and cardproduct_file:
         file_name="summary_data.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
+
